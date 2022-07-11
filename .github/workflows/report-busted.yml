@@ -1,0 +1,24 @@
+name: Annotate CI run with test results
+on:
+  workflow_run:
+    workflows: [ "Continuous Integration" ]
+    types:
+      - completed
+
+jobs:
+  annotate:
+    name: Annotate CI run with test results
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion != 'cancelled' }}
+    timeout-minutes: 5
+    steps:
+      - name: Annotate CI run with test results
+        uses: dorny/test-reporter@1.5.0
+        with:
+          artifact: lust-tests-result
+          name: Test Results
+          path: "*.xml"
+          reporter: java-junit
+          list-suites: 'failed'
+          list-tests: 'failed'
+
