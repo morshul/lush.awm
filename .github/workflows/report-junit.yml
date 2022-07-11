@@ -19,5 +19,5 @@ jobs:
           name: Test Results
           path: "*.xml"
           reporter: java-junit
-          list-suites: 'failed'
-          list-tests: 'failed'
+          list-suites: 'all'
+          list-tests: 'all'
