@@ -13,7 +13,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Annotate CI run with test results
-        uses: dorny/test-reporter@1.5.0
+        uses: dorny/test-reporter@v1.5.0
         with:
           artifact: lust-tests-result
           name: Test Results
