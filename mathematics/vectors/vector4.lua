@@ -27,7 +27,7 @@ local Vector4 = setmetatable({}, {
 --- @param w? number The W coordinate of the `Vector4`
 ---
 --- @return lush.Mathematics.Vector4 result Result of operation.
-vector4.create_from_xyz = function(x, y, z, w)
+vector4.create_from_xyzw = function(x, y, z, w)
   local result = setmetatable({}, {
     __index = Vector4,
   })
@@ -63,7 +63,7 @@ end
 --- @param vector? lush.Mathematics.Vector4
 ---
 --- @return lush.Mathematics.Vector4 result Result of operation.
-vector4.create_from_vector2 = function(vector)
+vector4.create_from_vector4 = function(vector)
   local result = setmetatable({}, {
     __index = Vector4,
   })

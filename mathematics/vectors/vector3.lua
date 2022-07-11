@@ -58,7 +58,7 @@ end
 --- @param vector? lush.Mathematics.Vector3
 ---
 --- @return lush.Mathematics.Vector3 result Result of operation.
-vector3.create_from_vector2 = function(vector)
+vector3.create_from_vector3 = function(vector)
   local result = setmetatable({}, {
     __index = Vector3,
   })
