@@ -1,7 +1,7 @@
 name: Annotate CI run with test results
 on:
   workflow_run:
-    workflows: [ "Continuous Integration" ]
+    workflows: ["CI"]
     types:
       - completed
 
@@ -21,4 +21,3 @@ jobs:
           reporter: java-junit
           list-suites: 'failed'
           list-tests: 'failed'
-
