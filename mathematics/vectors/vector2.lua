@@ -233,7 +233,7 @@ vector2.clamp = function(vec, min, max)
   })
 
   result.x = vec.x < min.x and min.x or vec.x > max.x and max.x or vec.x
-  result.x = vec.x < min.x and min.x or vec.x > max.y and max.y or vec.x
+  result.y = vec.y < min.y and min.y or vec.y > max.y and max.y or vec.y
 
   return result
 end

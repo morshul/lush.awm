@@ -259,7 +259,7 @@ vector4.clamp = function(vec, min, max)
   })
 
   result.x = vec.x < min.x and min.x or vec.x > max.x and max.x or vec.x
-  result.x = vec.x < min.x and min.x or vec.x > max.y and max.y or vec.x
+  result.y = vec.y < min.y and min.y or vec.y > max.y and max.y or vec.y
   result.z = vec.z < min.z and min.z or vec.z > max.z and max.z or vec.z
   result.w = vec.w < min.w and min.w or vec.w > max.w and max.w or vec.w
 
