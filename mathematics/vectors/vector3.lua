@@ -108,7 +108,7 @@ vector3.add = function(left, right)
   })
 end
 
----Subtract one Vector from another.
+---Subtract one vector from another.
 ---
 --- @param left lush.Descriptors.Vector3 Left operand.
 --- @param right lush.Descriptors.Vector3 Right operand.
@@ -178,7 +178,7 @@ vector3.component_max = function(a, b)
   })
 end
 
----Returns the Vector3 with the minimum magnitude.
+---Returns the vector with the minimum magnitude.
 ---If the magnitudes are equal, the second vector is selected.
 ---
 --- @param left lush.Descriptors.Vector3 Left operand.
@@ -192,7 +192,7 @@ vector3.magnitude_min = function(left, right)
   return left:length_squared() < right:length_squared() and left or right
 end
 
----Returns the Vector3 with the maximum magnitude.
+---Returns the vector with the maximum magnitude.
 ---If the magnitudes are equal, the first vector is selected.
 ---
 --- @param left lush.Descriptors.Vector3 Left operand.

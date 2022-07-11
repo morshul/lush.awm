@@ -164,7 +164,7 @@ vector2.component_max = function(a, b)
   })
 end
 
----Returns the Vector2 with the minimum magnitude.
+---Returns the vector with the minimum magnitude.
 ---If the magnitudes are equal, the second vector is selected.
 ---
 --- @param left lush.Descriptors.Vector2 Left operand.
@@ -178,7 +178,7 @@ vector2.magnitude_min = function(left, right)
   return left:length_squared() < right:length_squared() and left or right
 end
 
----Returns the Vector2 with the maximum magnitude.
+---Returns the vector with the maximum magnitude.
 ---If the magnitudes are equal, the first vector is selected.
 ---
 --- @param left lush.Descriptors.Vector2 Left operand.
@@ -312,7 +312,7 @@ function Vector2:perpendicular_left()
   return vector2.create_from_xy(-self.y, self.x)
 end
 
----Scales the Vector2 to unit length.
+---Scales the vector to unit length.
 function Vector2:normalize()
   local scale = 1.0 / self:length()
   self.x = self.x * scale

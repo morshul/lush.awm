@@ -25,7 +25,7 @@ local Vector4 = setmetatable({}, {
     VECTOR4 CONSTRUCTOR
 ]]
 
----Initializes a new instance of the vector. struct.
+---Initializes a new instance of the vector struct.
 ---
 --- @param x? number The X coordinate of the vector.
 --- @param y? number The Y coordinate of the vector.
@@ -46,7 +46,7 @@ vector4.create_from_xyzw = function(x, y, z, w)
   return object
 end
 
----Initializes a new instance of the `Vector4` struct.
+---Initializes a new instance of the vector struct.
 ---
 --- @param value? number The value that will initialize this instance.
 ---
@@ -64,7 +64,7 @@ vector4.create_from_value = function(value)
   return object
 end
 
----Initializes a new instance of the vector. struct.
+---Initializes a new instance of the vector struct.
 ---
 --- @param vector? lush.Descriptors.Vector4
 ---
@@ -192,7 +192,7 @@ vector4.component_max = function(a, b)
   })
 end
 
----Returns the Vector4 with the minimum magnitude.
+---Returns the vector with the minimum magnitude.
 ---If the magnitudes are equal, the second vector is selected.
 ---
 --- @param left lush.Descriptors.Vector4 Left operand.
@@ -206,7 +206,7 @@ vector4.magnitude_min = function(left, right)
   return left:length_squared() < right:length_squared() and left or right
 end
 
----Returns the Vector4 with the maximum magnitude.
+---Returns the vector with the maximum magnitude.
 ---If the magnitudes are equal, the first vector is selected.
 ---
 --- @param left lush.Descriptors.Vector4 Left operand.
@@ -312,7 +312,7 @@ vector4.lerp = function(a, b, blend)
 end
 
 --[[
-    VECTOR3 OBJECT
+    VECTOR4 OBJECT
 ]]
 
 ---Gets the length (magnitude) of the vector.
@@ -337,7 +337,7 @@ function Vector4:length_squared()
     + (self.w * self.w)
 end
 
----Scales the `Vector4` to unit length.
+---Scales the vector to unit length.
 function Vector4:normalize()
   local scale = 1.0 / self:length()
   self.x = self.x * scale
@@ -346,7 +346,7 @@ function Vector4:normalize()
   self.w = self.w * scale
 end
 
----Returns a copy of the `Vector4` scaled to unit length.
+---Returns a copy of the vector scaled to unit length.
 ---
 --- @return lush.Mathematics.Vector4 normalized The normalized copy.
 function Vector4:normalized()
