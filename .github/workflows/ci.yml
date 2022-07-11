@@ -25,5 +25,13 @@ jobs:
       # utfTerminal is temp
       - name: Test
         run: |
-          busted -p .spec -o utfTerminal
+          busted -p .spec -o junit > spec/lush-tests-result.xml
+        shell: sh
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: lush-tests-result
+          path: ${{github.workspace}}/spec/lush-tests-result.xml
 
