@@ -26,14 +26,14 @@ local Vector2 = setmetatable({}, {
 ---
 --- @return lush.Mathematics.Vector2 result Result of operation.
 vector2.create_from_xy = function(x, y)
-  local result = setmetatable({}, {
+  local object = setmetatable({}, {
     __index = Vector2,
   })
 
-  result.x = x or 0.0
-  result.y = y or 0.0
+  object.x = x or 0.0
+  object.y = y or 0.0
 
-  return result
+  return object
 end
 
 ---Initializes a new instance of the vector struct.
@@ -42,14 +42,14 @@ end
 ---
 --- @return lush.Mathematics.Vector2 result Result of operation.
 vector2.create_from_value = function(value)
-  local result = setmetatable({}, {
+  local object = setmetatable({}, {
     __index = Vector2,
   })
 
-  result.x = value or 0.0
-  result.y = value or 0.0
+  object.x = value or 0.0
+  object.y = value or 0.0
 
-  return result
+  return object
 end
 
 ---Initializes a new instance of the vector struct.
@@ -58,16 +58,16 @@ end
 ---
 --- @return lush.Mathematics.Vector2 result Result of operation.
 vector2.create_from_vector2 = function(vector)
-  local result = setmetatable({}, {
+  local object = setmetatable({}, {
     __index = Vector2,
   })
 
   if vector ~= nil then
-    result.x = vector.x or 0.0
-    result.y = vector.y or 0.0
+    object.x = vector.x or 0.0
+    object.y = vector.y or 0.0
   end
 
-  return result
+  return object
 end
 
 ---Deconstructs the vector into it's individual components.
@@ -77,11 +77,9 @@ end
 --- @return number x The X component of the vector.
 --- @return number y The Y component of the vector.
 vector2.deconstruct = function(vec)
-  local result = setmetatable({}, {
-    __index = vec,
-  })
+  local object = vector2.create_from_vector2(vec)
 
-  return result.x, result.y
+  return object.x, object.y
 end
 
 --[[
@@ -95,14 +93,10 @@ end
 ---
 --- @return lush.Mathematics.Vector2 result Result of operation.
 vector2.add = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector2,
+  return vector2.create_from_vector2({
+    x = right.x + left.x,
+    y = right.y + left.y,
   })
-
-  result.x = right.x + left.x
-  result.y = right.y + left.y
-
-  return result
 end
 
 ---Subtract one vector from another.
@@ -112,14 +106,10 @@ end
 ---
 --- @return lush.Mathematics.Vector2 result Result of operation.
 vector2.subtract = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector2,
+  return vector2.create_from_vector2({
+    x = left.x - right.x,
+    y = left.y - right.y,
   })
-
-  result.x = left.x - right.x
-  result.y = left.y - right.y
-
-  return result
 end
 
 ---Multiplies a vector by the components a vector (right).
@@ -129,14 +119,10 @@ end
 ---
 --- @return lush.Mathematics.Vector2 result Result of operation.
 vector2.multiply = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector2,
+  return vector2.create_from_vector2({
+    x = left.x * right.x,
+    y = left.y * right.y,
   })
-
-  result.x = left.x * right.x
-  result.y = left.y * right.y
-
-  return result
 end
 
 ---Divides a vector by the components of a vector (right).
@@ -146,14 +132,10 @@ end
 ---
 --- @return lush.Mathematics.Vector2 result Result of operation.
 vector2.divide = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector2,
+  return vector2.create_from_vector2({
+    x = left.x / right.x,
+    y = left.y / right.y,
   })
-
-  result.x = left.x / right.x
-  result.y = left.y / right.y
-
-  return result
 end
 
 ---Returns a vector created from the smallest of the corresponding components of the given vectors.
@@ -163,14 +145,10 @@ end
 ---
 --- @return lush.Mathematics.Vector2 result The component-wise minimum.
 vector2.component_min = function(a, b)
-  local result = setmetatable({}, {
-    __index = Vector2,
+  return vector2.create_from_vector2({
+    x = a.x < b.x and a.x or b.x,
+    y = a.y < b.y and a.y or b.y,
   })
-
-  result.x = a.x < b.x and a.x or b.x
-  result.y = a.y < b.y and a.y or b.y
-
-  return result
 end
 
 ---Returns a vector created from the largest of the corresponding components of the given vectors.
@@ -180,14 +158,10 @@ end
 ---
 --- @return lush.Mathematics.Vector2 result The component-wise maximum.
 vector2.component_max = function(a, b)
-  local result = setmetatable({}, {
-    __index = Vector2,
+  return vector2.create_from_vector2({
+    x = a.x > b.x and a.x or b.x,
+    y = a.y > b.y and a.y or b.y,
   })
-
-  result.x = a.x > b.x and a.x or b.x
-  result.y = a.y > b.y and a.y or b.y
-
-  return result
 end
 
 ---Returns the Vector2 with the minimum magnitude.
@@ -198,16 +172,10 @@ end
 ---
 --- @return lush.Mathematics.Vector2 result The minimum `Vector2`.
 vector2.magnitude_min = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector2,
-  })
-
   left = vector2.create_from_vector2(left)
   right = vector2.create_from_vector2(right)
 
-  result = left:length_squared() < right:length_squared() and left or right
-
-  return result
+  return left:length_squared() < right:length_squared() and left or right
 end
 
 ---Returns the Vector2 with the maximum magnitude.
@@ -218,16 +186,10 @@ end
 ---
 --- @return lush.Mathematics.Vector2 result The maximum `Vector2`.
 vector2.magnitude_max = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector2,
-  })
-
   left = vector2.create_from_vector2(left)
   right = vector2.create_from_vector2(right)
 
-  result = left:length_squared() >= right:length_squared() and left or right
-
-  return result
+  return left:length_squared() >= right:length_squared() and left or right
 end
 
 ---Clamp a vector to the given minimum and maximum vectors.
@@ -238,14 +200,10 @@ end
 ---
 --- @return lush.Mathematics.Vector2 result The clamped vector.
 vector2.clamp = function(vec, min, max)
-  local result = setmetatable({}, {
-    __index = Vector2,
+  return vector2.create_from_vector2({
+    x = vec.x < min.x and min.x or vec.x > max.x and max.x or vec.x,
+    y = vec.y < min.y and min.y or vec.y > max.y and max.y or vec.y,
   })
-
-  result.x = vec.x < min.x and min.x or vec.x > max.x and max.x or vec.x
-  result.y = vec.y < min.y and min.y or vec.y > max.y and max.y or vec.y
-
-  return result
 end
 
 ---Compute the euclidean distance between two vectors.
@@ -278,17 +236,14 @@ end
 ---
 --- @return lush.Mathematics.Vector2 result The normalized vector.
 vector2.normalize = function(vec)
-  local result = setmetatable({}, {
-    __index = Vector2,
-  })
-
   vec = vector2.create_from_vector2(vec)
 
   local scale = 1.0 / vec:length()
-  result.x = vec.x * scale
-  result.y = vec.y * scale
 
-  return result
+  return vector2.create_from_vector2({
+    x = vec.x * scale,
+    y = vec.y * scale,
+  })
 end
 
 ---Calculate the dot (scalar) product of two vectors.
@@ -319,14 +274,10 @@ end
 ---
 --- @return lush.Mathematics.Vector2 result `a` when `blend = 0`, `b` when `blend = 1`, and a linear combination otherwise.
 vector2.lerp = function(a, b, blend)
-  local result = setmetatable({}, {
-    __index = Vector2,
+  return vector2.create_from_vector2({
+    x = (blend * (b.x - a.x)) + a.x,
+    y = (blend * (b.y - a.y)) + a.y,
   })
-
-  result.x = (blend * (b.x - a.x)) + a.x
-  result.y = (blend * (b.y - a.y)) + a.y
-
-  return result
 end
 
 --[[
@@ -372,9 +323,7 @@ end
 ---
 --- @return lush.Mathematics.Vector2 normalized The normalized copy.
 function Vector2:normalized()
-  local result = setmetatable({}, {
-    __index = self,
-  })
+  local result = vector2.create_from_vector2(self)
 
   result:normalize()
   return result

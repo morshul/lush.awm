@@ -7,9 +7,9 @@ local vector3 = {}
 
 ---Represents a 3D vector using three high-precision numbers.
 --- @class lush.Mathematics.Vector3 : lush.Descriptors.Vector3
---- @field x number The X component of the `Vector3`
---- @field y number The Y component of the `Vector3`
---- @field z number The Z component of the `Vector3`
+--- @field x number The X component of the vector.
+--- @field y number The Y component of the vector.
+--- @field z number The Z component of the vector.
 local Vector3 = setmetatable({}, {
   __index = {
     x = 0.0,
@@ -30,15 +30,15 @@ local Vector3 = setmetatable({}, {
 ---
 --- @return lush.Mathematics.Vector3 result Result of operation.
 vector3.create_from_xyz = function(x, y, z)
-  local result = setmetatable({}, {
+  local object = setmetatable({}, {
     __index = Vector3,
   })
 
-  result.x = x or 0.0
-  result.y = y or 0.0
-  result.z = z or 0.0
+  object.x = x or 0.0
+  object.y = y or 0.0
+  object.z = z or 0.0
 
-  return result
+  return object
 end
 
 ---Initializes a new instance of the vector struct.
@@ -47,15 +47,15 @@ end
 ---
 --- @return lush.Mathematics.Vector3 result Result of operation.
 vector3.create_from_value = function(value)
-  local result = setmetatable({}, {
+  local object = setmetatable({}, {
     __index = Vector3,
   })
 
-  result.x = value or 0.0
-  result.y = value or 0.0
-  result.z = value or 0.0
+  object.x = value or 0.0
+  object.y = value or 0.0
+  object.z = value or 0.0
 
-  return result
+  return object
 end
 
 ---Initializes a new instance of the vector struct.
@@ -64,17 +64,17 @@ end
 ---
 --- @return lush.Mathematics.Vector3 result Result of operation.
 vector3.create_from_vector3 = function(vector)
-  local result = setmetatable({}, {
+  local object = setmetatable({}, {
     __index = Vector3,
   })
 
   if vector ~= nil then
-    result.x = vector.x or 0.0
-    result.y = vector.y or 0.0
-    result.z = vector.z or 0.0
+    object.x = vector.x or 0.0
+    object.y = vector.y or 0.0
+    object.z = vector.z or 0.0
   end
 
-  return result
+  return object
 end
 
 ---Deconstructs the vector into it's individual components.
@@ -85,11 +85,9 @@ end
 --- @return number y The Y component of the vector.
 --- @return number z The Z component of the vector.
 vector3.deconstruct = function(vec)
-  local result = setmetatable({}, {
-    __index = vec,
-  })
+  local object = vector3.create_from_vector3(vec)
 
-  return result.x, result.y, result.z
+  return object.x, object.y, object.z
 end
 
 --[[
@@ -103,15 +101,11 @@ end
 ---
 --- @return lush.Mathematics.Vector3 result Result of operation.
 vector3.add = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector3,
+  return vector3.create_from_vector3({
+    x = left.x + right.x,
+    y = left.y + right.y,
+    z = left.z - right.z,
   })
-
-  result.x = left.x + right.x
-  result.y = left.y + right.y
-  result.z = left.z - right.z
-
-  return result
 end
 
 ---Subtract one Vector from another.
@@ -121,15 +115,11 @@ end
 ---
 --- @return lush.Mathematics.Vector3 result Result of operation.
 vector3.subtract = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector3,
+  return vector3.create_from_vector3({
+    x = left.x - right.x,
+    y = left.y - right.y,
+    z = left.z - right.z,
   })
-
-  result.x = left.x - right.x
-  result.y = left.y - right.y
-  result.z = left.z - right.z
-
-  return result
 end
 
 ---Multiplies a vector by the components a vector (right).
@@ -139,15 +129,11 @@ end
 ---
 --- @return lush.Mathematics.Vector3 result Result of operation.
 vector3.multiply = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector3,
+  return vector3.create_from_vector3({
+    x = left.x * right.x,
+    y = left.y * right.y,
+    z = left.z * right.z,
   })
-
-  result.x = left.x * right.x
-  result.y = left.y * right.y
-  result.z = left.z * right.z
-
-  return result
 end
 
 ---Divides a vector by the components of a vector (right).
@@ -157,15 +143,11 @@ end
 ---
 --- @return lush.Mathematics.Vector3 result Result of operation.
 vector3.divide = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector3,
+  return vector3.create_from_vector3({
+    x = left.x / right.x,
+    y = left.y / right.y,
+    z = left.z / right.z,
   })
-
-  result.x = left.x / right.x
-  result.y = left.y / right.y
-  result.z = left.z / right.z
-
-  return result
 end
 
 ---Returns a vector created from the smallest of the corresponding components of the given vectors.
@@ -175,15 +157,11 @@ end
 ---
 --- @return lush.Mathematics.Vector3 result The component-wise minimum.
 vector3.component_min = function(a, b)
-  local result = setmetatable({}, {
-    __index = Vector3,
+  return vector3.create_from_vector3({
+    x = a.x < b.x and a.x or b.x,
+    y = a.y < b.y and a.y or b.y,
+    z = a.z < b.z and a.z or b.z,
   })
-
-  result.x = a.x < b.x and a.x or b.x
-  result.y = a.y < b.y and a.y or b.y
-  result.z = a.z < b.z and a.z or b.z
-
-  return result
 end
 
 ---Returns a vector created from the largest of the corresponding components of the given vectors.
@@ -193,15 +171,11 @@ end
 ---
 --- @return lush.Mathematics.Vector3 result The component-wise maximum.
 vector3.component_max = function(a, b)
-  local result = setmetatable({}, {
-    __index = Vector3,
+  return vector3.create_from_vector3({
+    x = a.x > b.x and a.x or b.x,
+    y = a.y > b.y and a.y or b.y,
+    z = a.z > b.z and a.z or b.z,
   })
-
-  result.x = a.x > b.x and a.x or b.x
-  result.y = a.y > b.y and a.y or b.y
-  result.z = a.z > b.z and a.z or b.z
-
-  return result
 end
 
 ---Returns the Vector3 with the minimum magnitude.
@@ -212,16 +186,10 @@ end
 ---
 --- @return lush.Mathematics.Vector3 result The minimum `Vector3`.
 vector3.magnitude_min = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector3,
-  })
-
   left = vector3.create_from_vector3(left)
   right = vector3.create_from_vector3(right)
 
-  result = left:length_squared() < right:length_squared() and left or right
-
-  return result
+  return left:length_squared() < right:length_squared() and left or right
 end
 
 ---Returns the Vector3 with the maximum magnitude.
@@ -232,16 +200,10 @@ end
 ---
 --- @return lush.Mathematics.Vector3 result The maximum `Vector3`.
 vector3.magnitude_max = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector3,
-  })
-
   left = vector3.create_from_vector3(left)
   right = vector3.create_from_vector3(right)
 
-  result = left:length_squared() >= right:length_squared() and left or right
-
-  return result
+  return left:length_squared() >= right:length_squared() and left or right
 end
 
 ---Clamp a vector to the given minimum and maximum vectors.
@@ -252,15 +214,11 @@ end
 ---
 --- @return lush.Mathematics.Vector3 result The clamped vector.
 vector3.clamp = function(vec, min, max)
-  local result = setmetatable({}, {
-    __index = Vector3,
+  return vector3.create_from_vector3({
+    x = vec.x < min.x and min.x or vec.x > max.x and max.x or vec.x,
+    y = vec.y < min.y and min.y or vec.y > max.y and max.y or vec.y,
+    z = vec.z < min.z and min.z or vec.z > max.z and max.z or vec.z,
   })
-
-  result.x = vec.x < min.x and min.x or vec.x > max.x and max.x or vec.x
-  result.y = vec.y < min.y and min.y or vec.y > max.y and max.y or vec.y
-  result.z = vec.z < min.z and min.z or vec.z > max.z and max.z or vec.z
-
-  return result
 end
 
 ---Compute the euclidean distance between two vectors.
@@ -295,18 +253,15 @@ end
 ---
 --- @return lush.Mathematics.Vector3 result The normalized vector.
 vector3.normalize = function(vec)
-  local result = setmetatable({}, {
-    __index = Vector3,
-  })
-
   vec = vector3.create_from_vector3(vec)
 
   local scale = 1.0 / vec:length()
-  result.x = vec.x * scale
-  result.y = vec.y * scale
-  result.z = vec.z * scale
 
-  return result
+  return vector3.create_from_vector3({
+    x = vec.x * scale,
+    y = vec.y * scale,
+    z = vec.z * scale,
+  })
 end
 
 ---Calculate the dot (scalar) product of two vectors.
@@ -326,15 +281,11 @@ end
 ---
 --- @return lush.Mathematics.Vector3 result The cross product of the two inputs.
 vector3.cross = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector3,
+  return vector3.create_from_vector3({
+    x = (left.y * right.z) - (left.z * right.y),
+    y = (left.z * right.x) - (left.x * right.z),
+    z = (left.x * right.y) - (left.y * right.x),
   })
-
-  result.x = (left.y * right.z) - (left.z * right.y)
-  result.y = (left.z * right.x) - (left.x * right.z)
-  result.z = (left.x * right.y) - (left.y * right.x)
-
-  return result
 end
 
 ---Returns a new vector that is the linear blend of the 2 given vectors.
@@ -345,15 +296,11 @@ end
 ---
 --- @return lush.Mathematics.Vector3 result `a` when `blend = 0`, `b` when `blend = 1`, and a linear combination otherwise.
 vector3.lerp = function(a, b, blend)
-  local result = setmetatable({}, {
-    __index = Vector3,
+  return vector3.create_from_vector3({
+    x = (blend * (b.x - a.x)) + a.x,
+    y = (blend * (b.y - a.y)) + a.y,
+    z = (blend * (b.z - a.z)) + a.z,
   })
-
-  result.x = (blend * (b.x - a.x)) + a.x
-  result.y = (blend * (b.y - a.y)) + a.y
-  result.z = (blend * (b.z - a.z)) + a.z
-
-  return result
 end
 
 --[[
@@ -386,9 +333,7 @@ end
 ---
 --- @return lush.Mathematics.Vector3 normalized The normalized copy.
 function Vector3:normalized()
-  local result = setmetatable({}, {
-    __index = self,
-  })
+  local result = vector3.create_from_vector3(self)
 
   result:normalize()
   return result

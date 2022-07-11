@@ -43,28 +43,22 @@ describe('clamping', function()
   it(
     'one vector between two other vectors clamps all components between corresponding components',
     function()
-      local vec = vector4.create_from_xyzw(5.6, 2.1, 7.3)
-      local min = vector4.create_from_xyzw(3.2, 4.2, 1.5)
-      local max = vector4.create_from_xyzw(7.4, 9.5, 10.4)
+      local vec = vector4.create_from_xyzw(5.6, 2.1, 7.3, 5.3)
+      local min = vector4.create_from_xyzw(3.2, 4.2, 1.5, 4.4)
+      local max = vector4.create_from_xyzw(7.4, 9.5, 10.4, 6.2)
       local clamped = vector4.clamp(vec, min, max)
 
-      local expected_x = vec.x < min.x and min.x
-        or vec.x > max.x and max.x
-        or vec.x
-      local expected_y = vec.y < min.y and min.y
-        or vec.y > max.y and max.y
-        or vec.y
-      local expected_z = vec.z < min.z and min.z
-        or vec.z > max.z and max.z
-        or vec.z
-      local expected_w = vec.w < min.w and min.w
-        or vec.w > max.w and max.w
-        or vec.w
+      local expected = vector4.create_from_vector4({
+        x = vec.x < min.x and min.x or vec.x > max.x and max.x or vec.x,
+        y = vec.y < min.y and min.y or vec.y > max.y and max.y or vec.y,
+        z = vec.z < min.z and min.z or vec.z > max.z and max.z or vec.z,
+        w = vec.w < min.w and min.w or vec.w > max.w and max.w or vec.w,
+      })
 
-      assert.are.equals(expected_x, clamped.x)
-      assert.are.equals(expected_y, clamped.y)
-      assert.are.equals(expected_z, clamped.z)
-      assert.are.equals(expected_w, clamped.w)
+      assert.are.equals(expected.x, clamped.x)
+      assert.are.equals(expected.y, clamped.y)
+      assert.are.equals(expected.z, clamped.z)
+      assert.are.equals(expected.w, clamped.w)
     end
   )
 end)

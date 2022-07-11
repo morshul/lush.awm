@@ -43,15 +43,13 @@ describe('clamping', function()
       local max = vector2.create_from_xy(7.4, 9.5)
       local clamped = vector2.clamp(vec, min, max)
 
-      local expected_x = vec.x < min.x and min.x
-        or vec.x > max.x and max.x
-        or vec.x
-      local expected_y = vec.y < min.y and min.y
-        or vec.y > max.y and max.y
-        or vec.y
+      local expected = vector2.create_from_vector2({
+        x = vec.x < min.x and min.x or vec.x > max.x and max.x or vec.x,
+        y = vec.y < min.y and min.y or vec.y > max.y and max.y or vec.y,
+      })
 
-      assert.are.equals(expected_x, clamped.x)
-      assert.are.equals(expected_y, clamped.y)
+      assert.are.equals(expected.x, clamped.x)
+      assert.are.equals(expected.y, clamped.y)
     end
   )
 end)

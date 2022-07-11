@@ -34,16 +34,16 @@ local Vector4 = setmetatable({}, {
 ---
 --- @return lush.Mathematics.Vector4 result Result of operation.
 vector4.create_from_xyzw = function(x, y, z, w)
-  local result = setmetatable({}, {
+  local object = setmetatable({}, {
     __index = Vector4,
   })
 
-  result.x = x or 0.0
-  result.y = y or 0.0
-  result.z = z or 0.0
-  result.w = w or 0.0
+  object.x = x or 0.0
+  object.y = y or 0.0
+  object.z = z or 0.0
+  object.w = w or 0.0
 
-  return result
+  return object
 end
 
 ---Initializes a new instance of the `Vector4` struct.
@@ -52,16 +52,16 @@ end
 ---
 --- @return lush.Mathematics.Vector4 result Result of operation.
 vector4.create_from_value = function(value)
-  local result = setmetatable({}, {
+  local object = setmetatable({}, {
     __index = Vector4,
   })
 
-  result.x = value or 0.0
-  result.y = value or 0.0
-  result.z = value or 0.0
-  result.w = value or 0.0
+  object.x = value or 0.0
+  object.y = value or 0.0
+  object.z = value or 0.0
+  object.w = value or 0.0
 
-  return result
+  return object
 end
 
 ---Initializes a new instance of the vector. struct.
@@ -70,18 +70,18 @@ end
 ---
 --- @return lush.Mathematics.Vector4 result Result of operation.
 vector4.create_from_vector4 = function(vector)
-  local result = setmetatable({}, {
+  local object = setmetatable({}, {
     __index = Vector4,
   })
 
   if vector ~= nil then
-    result.x = vector.x or 0.0
-    result.y = vector.y or 0.0
-    result.z = vector.z or 0.0
-    result.w = vector.z or 0.0
+    object.x = vector.x or 0.0
+    object.y = vector.y or 0.0
+    object.z = vector.z or 0.0
+    object.w = vector.z or 0.0
   end
 
-  return result
+  return object
 end
 
 ---Deconstructs the vector into it's individual components.
@@ -93,11 +93,9 @@ end
 --- @return number z The Z component of the vector.
 --- @return number w The W component of the vector.
 vector4.deconstruct = function(vec)
-  local result = setmetatable({}, {
-    __index = vec,
-  })
+  local object = vector4.create_from_vector4(vec)
 
-  return result.x, result.y, result.z, result.w
+  return object.x, object.y, object.z, object.w
 end
 
 --[[
@@ -111,16 +109,12 @@ end
 ---
 --- @return lush.Mathematics.Vector4 result Result of operation.
 vector4.add = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector4,
+  return vector4.create_from_vector4({
+    x = left.x + right.x,
+    y = left.y + right.y,
+    z = left.z + right.z,
+    w = left.w + right.w,
   })
-
-  result.x = left.x + right.x
-  result.y = left.y + right.y
-  result.z = left.z - right.z
-  result.w = left.w - right.w
-
-  return result
 end
 
 ---Subtract one vector from another.
@@ -130,16 +124,12 @@ end
 ---
 --- @return lush.Mathematics.Vector4 result Result of operation.
 vector4.subtract = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector4,
+  return vector4.create_from_vector4({
+    x = left.x - right.x,
+    y = left.y - right.y,
+    z = left.z - right.z,
+    w = left.w - right.w,
   })
-
-  result.x = left.x - right.x
-  result.y = left.y - right.y
-  result.z = left.z - right.z
-  result.w = left.w - right.w
-
-  return result
 end
 
 ---Multiplies a vector by the components a vector (right).
@@ -149,16 +139,12 @@ end
 ---
 --- @return lush.Mathematics.Vector4 result Result of operation.
 vector4.multiply = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector4,
+  return vector4.create_from_vector4({
+    x = left.x * right.x,
+    y = left.y * right.y,
+    z = left.z * right.z,
+    w = left.w * right.w,
   })
-
-  result.x = left.x * right.x
-  result.y = left.y * right.y
-  result.z = left.z * right.z
-  result.w = left.w * right.w
-
-  return result
 end
 
 ---Divides a vector by the components of a vector (right).
@@ -168,16 +154,12 @@ end
 ---
 --- @return lush.Mathematics.Vector4 result Result of operation.
 vector4.divide = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector4,
+  return vector4.create_from_vector4({
+    x = left.x / right.x,
+    y = left.y / right.y,
+    z = left.z / right.z,
+    w = left.w / right.w,
   })
-
-  result.x = left.x / right.x
-  result.y = left.y / right.y
-  result.z = left.z / right.z
-  result.w = left.w / right.w
-
-  return result
 end
 
 ---Returns a vector created from the smallest of the corresponding components of the given vectors.
@@ -187,16 +169,12 @@ end
 ---
 --- @return lush.Mathematics.Vector4 result The component-wise minimum.
 vector4.component_min = function(a, b)
-  local result = setmetatable({}, {
-    __index = Vector4,
+  return vector4.create_from_vector4({
+    x = a.x < b.x and a.x or b.x,
+    y = a.y < b.y and a.y or b.y,
+    z = a.z < b.z and a.z or b.z,
+    w = a.w < b.w and a.w or b.w,
   })
-
-  result.x = a.x < b.x and a.x or b.x
-  result.y = a.y < b.y and a.y or b.y
-  result.z = a.z < b.z and a.z or b.z
-  result.w = a.w < b.w and a.w or b.w
-
-  return result
 end
 
 ---Returns a vector created from the largest of the corresponding components of the given vectors.
@@ -206,16 +184,12 @@ end
 ---
 --- @return lush.Mathematics.Vector4 result The component-wise maximum.
 vector4.component_max = function(a, b)
-  local result = setmetatable({}, {
-    __index = Vector4,
+  return vector4.create_from_vector4({
+    x = a.x > b.x and a.x or b.x,
+    y = a.y > b.y and a.y or b.y,
+    z = a.z > b.z and a.z or b.z,
+    w = a.w > b.w and a.w or b.w,
   })
-
-  result.x = a.x > b.x and a.x or b.x
-  result.y = a.y > b.y and a.y or b.y
-  result.z = a.z > b.z and a.z or b.z
-  result.w = a.w > b.w and a.w or b.w
-
-  return result
 end
 
 ---Returns the Vector4 with the minimum magnitude.
@@ -226,16 +200,10 @@ end
 ---
 --- @return lush.Mathematics.Vector4 result The minimum `Vector4`.
 vector4.magnitude_min = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector4,
-  })
-
   left = vector4.create_from_vector4(left)
   right = vector4.create_from_vector4(right)
 
-  result = left:length_squared() < right:length_squared() and left or right
-
-  return result
+  return left:length_squared() < right:length_squared() and left or right
 end
 
 ---Returns the Vector4 with the maximum magnitude.
@@ -246,16 +214,10 @@ end
 ---
 --- @return lush.Mathematics.Vector4 result The maximum `Vector4`.
 vector4.magnitude_max = function(left, right)
-  local result = setmetatable({}, {
-    __index = Vector4,
-  })
-
   left = vector4.create_from_vector4(left)
   right = vector4.create_from_vector4(right)
 
-  result = left:length_squared() >= right:length_squared() and left or right
-
-  return result
+  return left:length_squared() >= right:length_squared() and left or right
 end
 
 ---Clamp a vector to the given minimum and maximum vectors.
@@ -266,16 +228,12 @@ end
 ---
 --- @return lush.Mathematics.Vector4 result The clamped vector.
 vector4.clamp = function(vec, min, max)
-  local result = setmetatable({}, {
-    __index = Vector4,
+  return vector4.create_from_vector4({
+    x = vec.x < min.x and min.x or vec.x > max.x and max.x or vec.x,
+    y = vec.y < min.y and min.y or vec.y > max.y and max.y or vec.y,
+    z = vec.z < min.z and min.z or vec.z > max.z and max.z or vec.z,
+    w = vec.w < min.w and min.w or vec.w > max.w and max.w or vec.w,
   })
-
-  result.x = vec.x < min.x and min.x or vec.x > max.x and max.x or vec.x
-  result.y = vec.y < min.y and min.y or vec.y > max.y and max.y or vec.y
-  result.z = vec.z < min.z and min.z or vec.z > max.z and max.z or vec.z
-  result.w = vec.w < min.w and min.w or vec.w > max.w and max.w or vec.w
-
-  return result
 end
 
 ---Compute the euclidean distance between two vectors.
@@ -312,19 +270,16 @@ end
 ---
 --- @return lush.Mathematics.Vector4 result The normalized vector.
 vector4.normalize = function(vec)
-  local result = setmetatable({}, {
-    __index = Vector4,
-  })
-
   vec = vector4.create_from_vector4(vec)
 
   local scale = 1.0 / vec:length()
-  result.x = vec.x * scale
-  result.y = vec.y * scale
-  result.z = vec.z * scale
-  result.w = vec.w * scale
 
-  return result
+  return vector4.create_from_vector4({
+    x = vec.x * scale,
+    y = vec.y * scale,
+    z = vec.z * scale,
+    w = vec.w * scale,
+  })
 end
 
 ---Calculate the dot (scalar) product of two vectors.
@@ -348,16 +303,12 @@ end
 ---
 --- @return lush.Mathematics.Vector4 result `a` when `blend = 0`, `b` when `blend = 1`, and a linear combination otherwise.
 vector4.lerp = function(a, b, blend)
-  local result = setmetatable({}, {
-    __index = Vector4,
+  return vector4.create_from_vector4({
+    x = (blend * (b.x - a.x)) + a.x,
+    y = (blend * (b.y - a.y)) + a.y,
+    z = (blend * (b.z - a.z)) + a.z,
+    w = (blend * (b.w - a.w)) + a.w,
   })
-
-  result.x = (blend * (b.x - a.x)) + a.x
-  result.y = (blend * (b.y - a.y)) + a.y
-  result.z = (blend * (b.z - a.z)) + a.z
-  result.w = (blend * (b.w - a.w)) + a.w
-
-  return result
 end
 
 --[[
@@ -399,9 +350,7 @@ end
 ---
 --- @return lush.Mathematics.Vector4 normalized The normalized copy.
 function Vector4:normalized()
-  local result = setmetatable({}, {
-    __index = self,
-  })
+  local result = vector4.create_from_vector4(self)
 
   result:normalize()
   return result
