@@ -18,6 +18,10 @@ jobs:
       - name: Install Luarocks
         uses: leafo/gh-actions-luarocks@v4
 
+      - name: Install dependencies
+        run: |
+          luarocks install busted
+
       # utfTerminal is temp
       - name: Test
         run: |
