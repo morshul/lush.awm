@@ -15,7 +15,7 @@ jobs:
       - name: Annotate CI run with test results
         uses: dorny/test-reporter@v1.5.0
         with:
-          artifact: lust-tests-result
+          artifact: lush-tests-result
           name: Test Results
           path: "*.xml"
           reporter: java-junit
