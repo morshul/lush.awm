@@ -1,11 +1,17 @@
 local vector4 = {}
 
+--- @class lush.Descriptors.Vector4
+--- @field x number The X component of the vector.
+--- @field y number The Y component of the vector.
+--- @field z number The Z component of the vector.
+--- @field w number The W component of the vector.
+
 ---Represents a 4D vector using four high-precision numbers.
---- @class lush.Mathematics.Vector4
---- @field x number The X component of the `Vector4`
---- @field y number The Y component of the `Vector4`
---- @field z number The Z component of the `Vector4`
---- @field w number The W component of the `Vector4`
+--- @class lush.Mathematics.Vector4 : lush.Descriptors.Vector4
+--- @field x number The X component of the vector.
+--- @field y number The Y component of the vector.
+--- @field z number The Z component of the vector.
+--- @field w number The W component of the vector.
 local Vector4 = setmetatable({}, {
   __index = {
     x = 0.0,
@@ -19,12 +25,12 @@ local Vector4 = setmetatable({}, {
     VECTOR4 CONSTRUCTOR
 ]]
 
----Initializes a new instance of the `Vector4` struct.
+---Initializes a new instance of the vector. struct.
 ---
---- @param x? number The X coordinate of the `Vector4`.
---- @param y? number The Y coordinate of the `Vector4`.
---- @param z? number The Z coordinate of the `Vector4`.
---- @param w? number The W coordinate of the `Vector4`
+--- @param x? number The X coordinate of the vector.
+--- @param y? number The Y coordinate of the vector.
+--- @param z? number The Z coordinate of the vector.
+--- @param w? number The W coordinate of the vector.
 ---
 --- @return lush.Mathematics.Vector4 result Result of operation.
 vector4.create_from_xyzw = function(x, y, z, w)
@@ -58,9 +64,9 @@ vector4.create_from_value = function(value)
   return result
 end
 
----Initializes a new instance of the `Vector4` struct.
+---Initializes a new instance of the vector. struct.
 ---
---- @param vector? lush.Mathematics.Vector4
+--- @param vector? lush.Descriptors.Vector4
 ---
 --- @return lush.Mathematics.Vector4 result Result of operation.
 vector4.create_from_vector4 = function(vector)
@@ -80,7 +86,7 @@ end
 
 ---Deconstructs the vector into it's individual components.
 ---
---- @param vec lush.Mathematics.Vector4
+--- @param vec lush.Descriptors.Vector4
 ---
 --- @return number x The X component of the vector.
 --- @return number y The Y component of the vector.
@@ -100,8 +106,8 @@ end
 
 ---Adds two vectors.
 ---
---- @param left lush.Mathematics.Vector4 Left operand.
---- @param right lush.Mathematics.Vector4 Right operand.
+--- @param left lush.Descriptors.Vector4 Left operand.
+--- @param right lush.Descriptors.Vector4 Right operand.
 ---
 --- @return lush.Mathematics.Vector4 result Result of operation.
 vector4.add = function(left, right)
@@ -119,8 +125,8 @@ end
 
 ---Subtract one vector from another.
 ---
---- @param left lush.Mathematics.Vector4 Left operand.
---- @param right lush.Mathematics.Vector4 Right operand.
+--- @param left lush.Descriptors.Vector4 Left operand.
+--- @param right lush.Descriptors.Vector4 Right operand.
 ---
 --- @return lush.Mathematics.Vector4 result Result of operation.
 vector4.subtract = function(left, right)
@@ -138,8 +144,8 @@ end
 
 ---Multiplies a vector by the components a vector (right).
 ---
---- @param left lush.Mathematics.Vector4 Left operand.
---- @param right lush.Mathematics.Vector4 Right operand.
+--- @param left lush.Descriptors.Vector4 Left operand.
+--- @param right lush.Descriptors.Vector4 Right operand.
 ---
 --- @return lush.Mathematics.Vector4 result Result of operation.
 vector4.multiply = function(left, right)
@@ -157,8 +163,8 @@ end
 
 ---Divides a vector by the components of a vector (right).
 ---
---- @param left lush.Mathematics.Vector4 Left operand.
---- @param right lush.Mathematics.Vector4 Right operand.
+--- @param left lush.Descriptors.Vector4 Left operand.
+--- @param right lush.Descriptors.Vector4 Right operand.
 ---
 --- @return lush.Mathematics.Vector4 result Result of operation.
 vector4.divide = function(left, right)
@@ -176,8 +182,8 @@ end
 
 ---Returns a vector created from the smallest of the corresponding components of the given vectors.
 ---
---- @param a lush.Mathematics.Vector4 First operand.
---- @param b lush.Mathematics.Vector4 Second operand.
+--- @param a lush.Descriptors.Vector4 First operand.
+--- @param b lush.Descriptors.Vector4 Second operand.
 ---
 --- @return lush.Mathematics.Vector4 result The component-wise minimum.
 vector4.component_min = function(a, b)
@@ -195,8 +201,8 @@ end
 
 ---Returns a vector created from the largest of the corresponding components of the given vectors.
 ---
---- @param a lush.Mathematics.Vector4 First operand.
---- @param b lush.Mathematics.Vector4 Second operand.
+--- @param a lush.Descriptors.Vector4 First operand.
+--- @param b lush.Descriptors.Vector4 Second operand.
 ---
 --- @return lush.Mathematics.Vector4 result The component-wise maximum.
 vector4.component_max = function(a, b)
@@ -215,14 +221,17 @@ end
 ---Returns the Vector4 with the minimum magnitude.
 ---If the magnitudes are equal, the second vector is selected.
 ---
---- @param left lush.Mathematics.Vector4 Left operand.
---- @param right lush.Mathematics.Vector4 Right operand.
+--- @param left lush.Descriptors.Vector4 Left operand.
+--- @param right lush.Descriptors.Vector4 Right operand.
 ---
 --- @return lush.Mathematics.Vector4 result The minimum `Vector4`.
 vector4.magnitude_min = function(left, right)
   local result = setmetatable({}, {
     __index = Vector4,
   })
+
+  left = vector4.create_from_vector4(left)
+  right = vector4.create_from_vector4(right)
 
   result = left:length_squared() < right:length_squared() and left or right
 
@@ -232,14 +241,17 @@ end
 ---Returns the Vector4 with the maximum magnitude.
 ---If the magnitudes are equal, the first vector is selected.
 ---
---- @param left lush.Mathematics.Vector4 Left operand.
---- @param right lush.Mathematics.Vector4 Right operand.
+--- @param left lush.Descriptors.Vector4 Left operand.
+--- @param right lush.Descriptors.Vector4 Right operand.
 ---
 --- @return lush.Mathematics.Vector4 result The maximum `Vector4`.
 vector4.magnitude_max = function(left, right)
   local result = setmetatable({}, {
     __index = Vector4,
   })
+
+  left = vector4.create_from_vector4(left)
+  right = vector4.create_from_vector4(right)
 
   result = left:length_squared() >= right:length_squared() and left or right
 
@@ -248,9 +260,9 @@ end
 
 ---Clamp a vector to the given minimum and maximum vectors.
 ---
---- @param vec lush.Mathematics.Vector4 Input vector.
---- @param min lush.Mathematics.Vector4 Minimum vector.
---- @param max lush.Mathematics.Vector4 Maximum vector.
+--- @param vec lush.Descriptors.Vector4 Input vector.
+--- @param min lush.Descriptors.Vector4 Minimum vector.
+--- @param max lush.Descriptors.Vector4 Maximum vector.
 ---
 --- @return lush.Mathematics.Vector4 result The clamped vector.
 vector4.clamp = function(vec, min, max)
@@ -268,8 +280,8 @@ end
 
 ---Compute the euclidean distance between two vectors.
 ---
---- @param vec1 lush.Mathematics.Vector4 The first vector.
---- @param vec2 lush.Mathematics.Vector4 The second vector.
+--- @param vec1 lush.Descriptors.Vector4 The first vector.
+--- @param vec2 lush.Descriptors.Vector4 The second vector.
 ---
 --- @return number result The distance.
 vector4.distance = function(vec1, vec2)
@@ -283,8 +295,8 @@ end
 
 ---Compute the squared euclidean distance between two vectors.
 ---
---- @param vec1 lush.Mathematics.Vector4 The first vector.
---- @param vec2 lush.Mathematics.Vector4 The second vector.
+--- @param vec1 lush.Descriptors.Vector4 The first vector.
+--- @param vec2 lush.Descriptors.Vector4 The second vector.
 ---
 --- @return number result The squared distance.
 vector4.distance_squared = function(vec1, vec2)
@@ -296,13 +308,15 @@ end
 
 ---Scale a vector to unit length.
 ---
---- @param vec lush.Mathematics.Vector4 The input vector.
+--- @param vec lush.Descriptors.Vector4 The input vector.
 ---
 --- @return lush.Mathematics.Vector4 result The normalized vector.
 vector4.normalize = function(vec)
   local result = setmetatable({}, {
     __index = Vector4,
   })
+
+  vec = vector4.create_from_vector4(vec)
 
   local scale = 1.0 / vec:length()
   result.x = vec.x * scale
@@ -315,8 +329,8 @@ end
 
 ---Calculate the dot (scalar) product of two vectors.
 ---
---- @param left lush.Mathematics.Vector4 Left operand.
---- @param right lush.Mathematics.Vector4 Right operand.
+--- @param left lush.Descriptors.Vector4 Left operand.
+--- @param right lush.Descriptors.Vector4 Right operand.
 ---
 --- @return number result The dot product of the two inputs.
 vector4.dot = function(left, right)
@@ -328,8 +342,8 @@ end
 
 ---Returns a new vector that is the linear blend of the 2 given vectors.
 ---
---- @param a lush.Mathematics.Vector4 First input vector.
---- @param b lush.Mathematics.Vector4 Second input vector.
+--- @param a lush.Descriptors.Vector4 First input vector.
+--- @param b lush.Descriptors.Vector4 Second input vector.
 --- @param blend number The blend factor. `a` when `blend = 0`, `b` when `blend = 1`.
 ---
 --- @return lush.Mathematics.Vector4 result `a` when `blend = 0`, `b` when `blend = 1`, and a linear combination otherwise.

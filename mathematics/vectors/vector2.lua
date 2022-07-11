@@ -1,9 +1,13 @@
 local vector2 = {}
 
+--- @class lush.Descriptors.Vector2
+--- @field x number The X component of the vector.
+--- @field y number The Y component of the vector.
+
 ---Represents a 2D vector using two high-precision numbers.
---- @class lush.Mathematics.Vector2
---- @field x number The X component of the `Vector2`
---- @field y number The Y component of the `Vector2`
+--- @class lush.Mathematics.Vector2 : lush.Descriptors.Vector2
+--- @field x number The X component of the vector.
+--- @field y number The Y component of the vector.
 local Vector2 = setmetatable({}, {
   __index = {
     x = 0.0,
@@ -15,10 +19,10 @@ local Vector2 = setmetatable({}, {
     VECTOR2 CONSTRUCTOR
 ]]
 
----Initializes a new instance of the `Vector2` struct.
+---Initializes a new instance of the vector struct.
 ---
---- @param x? number The X coordinate of the `Vector2`.
---- @param y? number The Y coordinate of the `Vector2`.
+--- @param x? number The X coordinate of the vector.
+--- @param y? number The Y coordinate of the vector.
 ---
 --- @return lush.Mathematics.Vector2 result Result of operation.
 vector2.create_from_xy = function(x, y)
@@ -32,7 +36,7 @@ vector2.create_from_xy = function(x, y)
   return result
 end
 
----Initializes a new instance of the `Vector2` struct.
+---Initializes a new instance of the vector struct.
 ---
 --- @param value? number The value that will initialize this instance.
 ---
@@ -48,9 +52,9 @@ vector2.create_from_value = function(value)
   return result
 end
 
----Initializes a new instance of the `Vector2` struct.
+---Initializes a new instance of the vector struct.
 ---
---- @param vector? lush.Mathematics.Vector2
+--- @param vector? lush.Descriptors.Vector2
 ---
 --- @return lush.Mathematics.Vector2 result Result of operation.
 vector2.create_from_vector2 = function(vector)
@@ -68,7 +72,7 @@ end
 
 ---Deconstructs the vector into it's individual components.
 ---
---- @param vec lush.Mathematics.Vector2
+--- @param vec lush.Descriptors.Vector2
 ---
 --- @return number x The X component of the vector.
 --- @return number y The Y component of the vector.
@@ -86,8 +90,8 @@ end
 
 ---Adds two vectors.
 ---
---- @param left lush.Mathematics.Vector2 Left operand.
---- @param right lush.Mathematics.Vector2 Right operand.
+--- @param left lush.Descriptors.Vector2 Left operand.
+--- @param right lush.Descriptors.Vector2 Right operand.
 ---
 --- @return lush.Mathematics.Vector2 result Result of operation.
 vector2.add = function(left, right)
@@ -103,8 +107,8 @@ end
 
 ---Subtract one vector from another.
 ---
---- @param left lush.Mathematics.Vector2 Left operand.
---- @param right lush.Mathematics.Vector2 Right operand.
+--- @param left lush.Descriptors.Vector2 Left operand.
+--- @param right lush.Descriptors.Vector2 Right operand.
 ---
 --- @return lush.Mathematics.Vector2 result Result of operation.
 vector2.subtract = function(left, right)
@@ -120,8 +124,8 @@ end
 
 ---Multiplies a vector by the components a vector (right).
 ---
---- @param left lush.Mathematics.Vector2 Left operand.
---- @param right lush.Mathematics.Vector2 Right operand.
+--- @param left lush.Descriptors.Vector2 Left operand.
+--- @param right lush.Descriptors.Vector2 Right operand.
 ---
 --- @return lush.Mathematics.Vector2 result Result of operation.
 vector2.multiply = function(left, right)
@@ -137,8 +141,8 @@ end
 
 ---Divides a vector by the components of a vector (right).
 ---
---- @param left lush.Mathematics.Vector2 Left operand.
---- @param right lush.Mathematics.Vector2 Right operand.
+--- @param left lush.Descriptors.Vector2 Left operand.
+--- @param right lush.Descriptors.Vector2 Right operand.
 ---
 --- @return lush.Mathematics.Vector2 result Result of operation.
 vector2.divide = function(left, right)
@@ -154,8 +158,8 @@ end
 
 ---Returns a vector created from the smallest of the corresponding components of the given vectors.
 ---
---- @param a lush.Mathematics.Vector2 First operand.
---- @param b lush.Mathematics.Vector2 Second operand.
+--- @param a lush.Descriptors.Vector2 First operand.
+--- @param b lush.Descriptors.Vector2 Second operand.
 ---
 --- @return lush.Mathematics.Vector2 result The component-wise minimum.
 vector2.component_min = function(a, b)
@@ -171,8 +175,8 @@ end
 
 ---Returns a vector created from the largest of the corresponding components of the given vectors.
 ---
---- @param a lush.Mathematics.Vector2 First operand.
---- @param b lush.Mathematics.Vector2 Second operand.
+--- @param a lush.Descriptors.Vector2 First operand.
+--- @param b lush.Descriptors.Vector2 Second operand.
 ---
 --- @return lush.Mathematics.Vector2 result The component-wise maximum.
 vector2.component_max = function(a, b)
@@ -189,14 +193,17 @@ end
 ---Returns the Vector2 with the minimum magnitude.
 ---If the magnitudes are equal, the second vector is selected.
 ---
---- @param left lush.Mathematics.Vector2 Left operand.
---- @param right lush.Mathematics.Vector2 Right operand.
+--- @param left lush.Descriptors.Vector2 Left operand.
+--- @param right lush.Descriptors.Vector2 Right operand.
 ---
 --- @return lush.Mathematics.Vector2 result The minimum `Vector2`.
 vector2.magnitude_min = function(left, right)
   local result = setmetatable({}, {
     __index = Vector2,
   })
+
+  left = vector2.create_from_vector2(left)
+  right = vector2.create_from_vector2(right)
 
   result = left:length_squared() < right:length_squared() and left or right
 
@@ -206,14 +213,17 @@ end
 ---Returns the Vector2 with the maximum magnitude.
 ---If the magnitudes are equal, the first vector is selected.
 ---
---- @param left lush.Mathematics.Vector2 Left operand.
---- @param right lush.Mathematics.Vector2 Right operand.
+--- @param left lush.Descriptors.Vector2 Left operand.
+--- @param right lush.Descriptors.Vector2 Right operand.
 ---
 --- @return lush.Mathematics.Vector2 result The maximum `Vector2`.
 vector2.magnitude_max = function(left, right)
   local result = setmetatable({}, {
     __index = Vector2,
   })
+
+  left = vector2.create_from_vector2(left)
+  right = vector2.create_from_vector2(right)
 
   result = left:length_squared() >= right:length_squared() and left or right
 
@@ -222,9 +232,9 @@ end
 
 ---Clamp a vector to the given minimum and maximum vectors.
 ---
---- @param vec lush.Mathematics.Vector2 Input vector.
---- @param min lush.Mathematics.Vector2 Minimum vector.
---- @param max lush.Mathematics.Vector2 Maximum vector.
+--- @param vec lush.Descriptors.Vector2 Input vector.
+--- @param min lush.Descriptors.Vector2 Minimum vector.
+--- @param max lush.Descriptors.Vector2 Maximum vector.
 ---
 --- @return lush.Mathematics.Vector2 result The clamped vector.
 vector2.clamp = function(vec, min, max)
@@ -240,8 +250,8 @@ end
 
 ---Compute the euclidean distance between two vectors.
 ---
---- @param vec1 lush.Mathematics.Vector2 The first vector.
---- @param vec2 lush.Mathematics.Vector2 The second vector.
+--- @param vec1 lush.Descriptors.Vector2 The first vector.
+--- @param vec2 lush.Descriptors.Vector2 The second vector.
 ---
 --- @return number result The distance.
 vector2.distance = function(vec1, vec2)
@@ -253,8 +263,8 @@ end
 
 ---Compute the squared euclidean distance between two vectors.
 ---
---- @param vec1 lush.Mathematics.Vector2 The first vector.
---- @param vec2 lush.Mathematics.Vector2 The second vector.
+--- @param vec1 lush.Descriptors.Vector2 The first vector.
+--- @param vec2 lush.Descriptors.Vector2 The second vector.
 ---
 --- @return number result The squared distance.
 vector2.distance_squared = function(vec1, vec2)
@@ -264,13 +274,15 @@ end
 
 ---Scale a vector to unit length.
 ---
---- @param vec lush.Mathematics.Vector2 The input vector.
+--- @param vec lush.Descriptors.Vector2 The input vector.
 ---
 --- @return lush.Mathematics.Vector2 result The normalized vector.
 vector2.normalize = function(vec)
   local result = setmetatable({}, {
     __index = Vector2,
   })
+
+  vec = vector2.create_from_vector2(vec)
 
   local scale = 1.0 / vec:length()
   result.x = vec.x * scale
@@ -281,8 +293,8 @@ end
 
 ---Calculate the dot (scalar) product of two vectors.
 ---
---- @param left lush.Mathematics.Vector2 Left operand.
---- @param right lush.Mathematics.Vector2 Right operand.
+--- @param left lush.Descriptors.Vector2 Left operand.
+--- @param right lush.Descriptors.Vector2 Right operand.
 ---
 --- @return number result The dot product of the two inputs.
 vector2.dot = function(left, right)
@@ -291,8 +303,8 @@ end
 
 ---Calculate the perpendicular dot (scalar) product of two vectors.
 ---
---- @param left lush.Mathematics.Vector2 Left operand.
---- @param right lush.Mathematics.Vector2 Right operand.
+--- @param left lush.Descriptors.Vector2 Left operand.
+--- @param right lush.Descriptors.Vector2 Right operand.
 ---
 --- @return number result The perpendicular dot product of two inputs.
 vector2.perp_dot = function(left, right)
@@ -301,8 +313,8 @@ end
 
 ---Returns a new vector that is the linear blend of the 2 given vectors.
 ---
---- @param a lush.Mathematics.Vector2 First input vector.
---- @param b lush.Mathematics.Vector2 Second input vector.
+--- @param a lush.Descriptors.Vector2 First input vector.
+--- @param b lush.Descriptors.Vector2 Second input vector.
 --- @param blend number The blend factor. `a` when `blend = 0`, `b` when `blend = 1`.
 ---
 --- @return lush.Mathematics.Vector2 result `a` when `blend = 0`, `b` when `blend = 1`, and a linear combination otherwise.
@@ -356,7 +368,7 @@ function Vector2:normalize()
   self.y = self.y * scale
 end
 
----Returns a copy of the Vector2 scaled to unit length.
+---Returns a copy of the vector scaled to unit length.
 ---
 --- @return lush.Mathematics.Vector2 normalized The normalized copy.
 function Vector2:normalized()

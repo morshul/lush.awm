@@ -1,7 +1,12 @@
 local vector3 = {}
 
+--- @class lush.Descriptors.Vector3
+--- @field x number The X component of the vector.
+--- @field y number The Y component of the vector.
+--- @field z number The Z component of the vector.
+
 ---Represents a 3D vector using three high-precision numbers.
---- @class lush.Mathematics.Vector3
+--- @class lush.Mathematics.Vector3 : lush.Descriptors.Vector3
 --- @field x number The X component of the `Vector3`
 --- @field y number The Y component of the `Vector3`
 --- @field z number The Z component of the `Vector3`
@@ -17,11 +22,11 @@ local Vector3 = setmetatable({}, {
     VECTOR3 CONSTRUCTOR
 ]]
 
----Initializes a new instance of the `Vector3` struct.
+---Initializes a new instance of the vector struct.
 ---
---- @param x? number The X coordinate of the `Vector3`.
---- @param y? number The Y coordinate of the `Vector3`.
---- @param z? number The Z coordinate of the `Vector3`.
+--- @param x? number The X coordinate of the vector.
+--- @param y? number The Y coordinate of the vector.
+--- @param z? number The Z coordinate of the vector.
 ---
 --- @return lush.Mathematics.Vector3 result Result of operation.
 vector3.create_from_xyz = function(x, y, z)
@@ -36,7 +41,7 @@ vector3.create_from_xyz = function(x, y, z)
   return result
 end
 
----Initializes a new instance of the `Vector3` struct.
+---Initializes a new instance of the vector struct.
 ---
 --- @param value? number The value that will initialize this instance.
 ---
@@ -53,9 +58,9 @@ vector3.create_from_value = function(value)
   return result
 end
 
----Initializes a new instance of the `Vector3` struct.
+---Initializes a new instance of the vector struct.
 ---
---- @param vector? lush.Mathematics.Vector3
+--- @param vector? lush.Descriptors.Vector3
 ---
 --- @return lush.Mathematics.Vector3 result Result of operation.
 vector3.create_from_vector3 = function(vector)
@@ -74,7 +79,7 @@ end
 
 ---Deconstructs the vector into it's individual components.
 ---
---- @param vec lush.Mathematics.Vector3
+--- @param vec lush.Descriptors.Vector3
 ---
 --- @return number x The X component of the vector.
 --- @return number y The Y component of the vector.
@@ -93,8 +98,8 @@ end
 
 ---Adds two vectors.
 ---
---- @param left lush.Mathematics.Vector3 Left operand.
---- @param right lush.Mathematics.Vector3 Right operand.
+--- @param left lush.Descriptors.Vector3 Left operand.
+--- @param right lush.Descriptors.Vector3 Right operand.
 ---
 --- @return lush.Mathematics.Vector3 result Result of operation.
 vector3.add = function(left, right)
@@ -111,8 +116,8 @@ end
 
 ---Subtract one Vector from another.
 ---
---- @param left lush.Mathematics.Vector3 Left operand.
---- @param right lush.Mathematics.Vector3 Right operand.
+--- @param left lush.Descriptors.Vector3 Left operand.
+--- @param right lush.Descriptors.Vector3 Right operand.
 ---
 --- @return lush.Mathematics.Vector3 result Result of operation.
 vector3.subtract = function(left, right)
@@ -129,8 +134,8 @@ end
 
 ---Multiplies a vector by the components a vector (right).
 ---
---- @param left lush.Mathematics.Vector3 Left operand.
---- @param right lush.Mathematics.Vector3 Right operand.
+--- @param left lush.Descriptors.Vector3 Left operand.
+--- @param right lush.Descriptors.Vector3 Right operand.
 ---
 --- @return lush.Mathematics.Vector3 result Result of operation.
 vector3.multiply = function(left, right)
@@ -147,8 +152,8 @@ end
 
 ---Divides a vector by the components of a vector (right).
 ---
---- @param left lush.Mathematics.Vector3 Left operand.
---- @param right lush.Mathematics.Vector3 Right operand.
+--- @param left lush.Descriptors.Vector3 Left operand.
+--- @param right lush.Descriptors.Vector3 Right operand.
 ---
 --- @return lush.Mathematics.Vector3 result Result of operation.
 vector3.divide = function(left, right)
@@ -165,8 +170,8 @@ end
 
 ---Returns a vector created from the smallest of the corresponding components of the given vectors.
 ---
---- @param a lush.Mathematics.Vector3 First operand.
---- @param b lush.Mathematics.Vector3 Second operand.
+--- @param a lush.Descriptors.Vector3 First operand.
+--- @param b lush.Descriptors.Vector3 Second operand.
 ---
 --- @return lush.Mathematics.Vector3 result The component-wise minimum.
 vector3.component_min = function(a, b)
@@ -183,8 +188,8 @@ end
 
 ---Returns a vector created from the largest of the corresponding components of the given vectors.
 ---
---- @param a lush.Mathematics.Vector3 First operand.
---- @param b lush.Mathematics.Vector3 Second operand.
+--- @param a lush.Descriptors.Vector3 First operand.
+--- @param b lush.Descriptors.Vector3 Second operand.
 ---
 --- @return lush.Mathematics.Vector3 result The component-wise maximum.
 vector3.component_max = function(a, b)
@@ -202,14 +207,17 @@ end
 ---Returns the Vector3 with the minimum magnitude.
 ---If the magnitudes are equal, the second vector is selected.
 ---
---- @param left lush.Mathematics.Vector3 Left operand.
---- @param right lush.Mathematics.Vector3 Right operand.
+--- @param left lush.Descriptors.Vector3 Left operand.
+--- @param right lush.Descriptors.Vector3 Right operand.
 ---
 --- @return lush.Mathematics.Vector3 result The minimum `Vector3`.
 vector3.magnitude_min = function(left, right)
   local result = setmetatable({}, {
     __index = Vector3,
   })
+
+  left = vector3.create_from_vector3(left)
+  right = vector3.create_from_vector3(right)
 
   result = left:length_squared() < right:length_squared() and left or right
 
@@ -219,14 +227,17 @@ end
 ---Returns the Vector3 with the maximum magnitude.
 ---If the magnitudes are equal, the first vector is selected.
 ---
---- @param left lush.Mathematics.Vector3 Left operand.
---- @param right lush.Mathematics.Vector3 Right operand.
+--- @param left lush.Descriptors.Vector3 Left operand.
+--- @param right lush.Descriptors.Vector3 Right operand.
 ---
 --- @return lush.Mathematics.Vector3 result The maximum `Vector3`.
 vector3.magnitude_max = function(left, right)
   local result = setmetatable({}, {
     __index = Vector3,
   })
+
+  left = vector3.create_from_vector3(left)
+  right = vector3.create_from_vector3(right)
 
   result = left:length_squared() >= right:length_squared() and left or right
 
@@ -235,9 +246,9 @@ end
 
 ---Clamp a vector to the given minimum and maximum vectors.
 ---
---- @param vec lush.Mathematics.Vector3 Input vector.
---- @param min lush.Mathematics.Vector3 Minimum vector.
---- @param max lush.Mathematics.Vector3 Maximum vector.
+--- @param vec lush.Descriptors.Vector3 Input vector.
+--- @param min lush.Descriptors.Vector3 Minimum vector.
+--- @param max lush.Descriptors.Vector3 Maximum vector.
 ---
 --- @return lush.Mathematics.Vector3 result The clamped vector.
 vector3.clamp = function(vec, min, max)
@@ -254,8 +265,8 @@ end
 
 ---Compute the euclidean distance between two vectors.
 ---
---- @param vec1 lush.Mathematics.Vector3 The first vector.
---- @param vec2 lush.Mathematics.Vector3 The second vector.
+--- @param vec1 lush.Descriptors.Vector3 The first vector.
+--- @param vec2 lush.Descriptors.Vector3 The second vector.
 ---
 --- @return number result The distance.
 vector3.distance = function(vec1, vec2)
@@ -268,8 +279,8 @@ end
 
 ---Compute the squared euclidean distance between two vectors.
 ---
---- @param vec1 lush.Mathematics.Vector3 The first vector.
---- @param vec2 lush.Mathematics.Vector3 The second vector.
+--- @param vec1 lush.Descriptors.Vector3 The first vector.
+--- @param vec2 lush.Descriptors.Vector3 The second vector.
 ---
 --- @return number result The squared distance.
 vector3.distance_squared = function(vec1, vec2)
@@ -280,13 +291,15 @@ end
 
 ---Scale a vector to unit length.
 ---
---- @param vec lush.Mathematics.Vector3 The input vector.
+--- @param vec lush.Descriptors.Vector3 The input vector.
 ---
 --- @return lush.Mathematics.Vector3 result The normalized vector.
 vector3.normalize = function(vec)
   local result = setmetatable({}, {
     __index = Vector3,
   })
+
+  vec = vector3.create_from_vector3(vec)
 
   local scale = 1.0 / vec:length()
   result.x = vec.x * scale
@@ -298,8 +311,8 @@ end
 
 ---Calculate the dot (scalar) product of two vectors.
 ---
---- @param left lush.Mathematics.Vector3 Left operand.
---- @param right lush.Mathematics.Vector3 Right operand.
+--- @param left lush.Descriptors.Vector3 Left operand.
+--- @param right lush.Descriptors.Vector3 Right operand.
 ---
 --- @return number result The dot product of the two inputs.
 vector3.dot = function(left, right)
@@ -308,8 +321,8 @@ end
 
 ---Caclulate the cross (vector) product of two vectors.
 ---
---- @param left lush.Mathematics.Vector3 First operand.
---- @param right lush.Mathematics.Vector3 First operand.
+--- @param left lush.Descriptors.Vector3 First operand.
+--- @param right lush.Descriptors.Vector3 First operand.
 ---
 --- @return lush.Mathematics.Vector3 result The cross product of the two inputs.
 vector3.cross = function(left, right)
@@ -326,8 +339,8 @@ end
 
 ---Returns a new vector that is the linear blend of the 2 given vectors.
 ---
---- @param a lush.Mathematics.Vector3 First input vector.
---- @param b lush.Mathematics.Vector3 Second input vector.
+--- @param a lush.Descriptors.Vector3 First input vector.
+--- @param b lush.Descriptors.Vector3 Second input vector.
 --- @param blend number The blend factor. `a` when `blend = 0`, `b` when `blend = 1`.
 ---
 --- @return lush.Mathematics.Vector3 result `a` when `blend = 0`, `b` when `blend = 1`, and a linear combination otherwise.
@@ -361,7 +374,7 @@ function Vector3:length_squared()
   return (self.x * self.x) + (self.y * self.y) + (self.z * self.z)
 end
 
----Scales the `Vector3` to unit length.
+---Scales the vector to unit length.
 function Vector3:normalize()
   local scale = 1.0 / self:length()
   self.x = self.x * scale
@@ -369,7 +382,7 @@ function Vector3:normalize()
   self.z = self.z * scale
 end
 
----Returns a copy of the `Vector3` scaled to unit length.
+---Returns a copy of the vector scaled to unit length.
 ---
 --- @return lush.Mathematics.Vector3 normalized The normalized copy.
 function Vector3:normalized()
