@@ -15,6 +15,32 @@ local Vector2 = setmetatable({}, {
   },
 })
 
+local META = {}
+
+META.__tostring = function(object)
+  return string.format('(%s, %s)', object.x, object.y)
+end
+
+META.__add = function(object, value)
+  return vector2.add(object, value)
+end
+
+META.__sub = function(object, value)
+  return vector2.subtract(object, value)
+end
+
+META.__mul = function(object, value)
+  return vector2.multiply(object, value)
+end
+
+META.__div = function(object, value)
+  return vector2.divide(object, value)
+end
+
+META.__eq = function(object, value)
+  return vector2.equals(object, value)
+end
+
 --[[
     VECTOR2 CONSTRUCTOR
 ]]
@@ -28,6 +54,12 @@ local Vector2 = setmetatable({}, {
 vector2.create_from_xy = function(x, y)
   local object = setmetatable({}, {
     __index = Vector2,
+    __tostring = META.__tostring,
+    __add = META.__add,
+    __sub = META.__sub,
+    __mul = META.__mul,
+    __div = META.__div,
+    __eq = META.__eq,
   })
 
   object.x = x or 0.0
@@ -44,6 +76,12 @@ end
 vector2.create_from_value = function(value)
   local object = setmetatable({}, {
     __index = Vector2,
+    __tostring = META.__tostring,
+    __add = META.__add,
+    __sub = META.__sub,
+    __mul = META.__mul,
+    __div = META.__div,
+    __eq = META.__eq,
   })
 
   object.x = value or 0.0
@@ -60,6 +98,12 @@ end
 vector2.create_from_vector2 = function(vector)
   local object = setmetatable({}, {
     __index = Vector2,
+    __tostring = META.__tostring,
+    __add = META.__add,
+    __sub = META.__sub,
+    __mul = META.__mul,
+    __div = META.__div,
+    __eq = META.__eq,
   })
 
   if vector ~= nil then
@@ -136,6 +180,14 @@ vector2.divide = function(left, right)
     x = left.x / right.x,
     y = left.y / right.y,
   })
+end
+
+--- @param left lush.Descriptors.Vector2 Left operand.
+--- @param right lush.Descriptors.Vector2 Right operand.
+---
+--- @return boolean result Result of operation.
+vector2.equals = function(left, right)
+  return left.x == right.x and left.y == right.y
 end
 
 ---Returns a vector created from the smallest of the corresponding components of the given vectors.

@@ -71,3 +71,79 @@ describe('length', function()
     assert.are.equals(squared, vec:length_squared())
   end)
 end)
+
+describe('metamethod', function()
+  it('__tostring', function()
+    local x = math.random(100)
+    local y = math.random(100)
+    local vec = vector2.create_from_xy(x, y)
+    local result = tostring(vec)
+
+    assert.are.equals(result, string.format('(%s, %s)', x, y))
+  end)
+
+  it('__add', function()
+    local x1 = math.random(100)
+    local x2 = math.random(100)
+    local y1 = math.random(100)
+    local y2 = math.random(100)
+    local vec1 = vector2.create_from_xy(x1, y1)
+    local vec2 = vector2.create_from_xy(x2, y2)
+
+    assert.are.same(vec1 + vec2, {
+      x = x1 + x2,
+      y = y1 + y2,
+    })
+  end)
+
+  it('__sub', function()
+    local x1 = math.random(100)
+    local x2 = math.random(100)
+    local y1 = math.random(100)
+    local y2 = math.random(100)
+    local vec1 = vector2.create_from_xy(x1, y1)
+    local vec2 = vector2.create_from_xy(x2, y2)
+
+    assert.are.same(vec1 - vec2, {
+      x = x1 - x2,
+      y = y1 - y2,
+    })
+  end)
+
+  it('__mul', function()
+    local x1 = math.random(100)
+    local x2 = math.random(100)
+    local y1 = math.random(100)
+    local y2 = math.random(100)
+    local vec1 = vector2.create_from_xy(x1, y1)
+    local vec2 = vector2.create_from_xy(x2, y2)
+
+    assert.are.same(vec1 * vec2, {
+      x = x1 * x2,
+      y = y1 * y2,
+    })
+  end)
+
+  it('__div', function()
+    local x1 = math.random(100)
+    local x2 = math.random(100)
+    local y1 = math.random(100)
+    local y2 = math.random(100)
+    local vec1 = vector2.create_from_xy(x1, y1)
+    local vec2 = vector2.create_from_xy(x2, y2)
+
+    assert.are.same(vec1 / vec2, {
+      x = x1 / x2,
+      y = y1 / y2,
+    })
+  end)
+
+  it('__eq', function()
+    local x = math.random(100)
+    local y = math.random(100)
+    local left = vector2.create_from_xy(x, y)
+    local right = vector2.create_from_vector2(left)
+
+    assert.are.equals(left, right)
+  end)
+end)

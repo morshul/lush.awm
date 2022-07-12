@@ -76,3 +76,93 @@ describe('length', function()
     assert.are.equals(squared, vec:length_squared())
   end)
 end)
+
+describe('metamethod', function()
+  it('__tostring', function()
+    local x = math.random(100)
+    local y = math.random(100)
+    local z = math.random(100)
+    local vec = vector3.create_from_xyz(x, y, z)
+    local result = tostring(vec)
+
+    assert.are.equals(result, string.format('(%s, %s, %s)', x, y, z))
+  end)
+
+  it('__add', function()
+    local x1 = math.random(100)
+    local x2 = math.random(100)
+    local y1 = math.random(100)
+    local y2 = math.random(100)
+    local z1 = math.random(100)
+    local z2 = math.random(100)
+    local vec1 = vector3.create_from_xyz(x1, y1, z1)
+    local vec2 = vector3.create_from_xyz(x2, y2, z2)
+
+    assert.are.same(vec1 + vec2, {
+      x = x1 + x2,
+      y = y1 + y2,
+      z = z1 + z2,
+    })
+  end)
+
+  it('__sub', function()
+    local x1 = math.random(100)
+    local x2 = math.random(100)
+    local y1 = math.random(100)
+    local y2 = math.random(100)
+    local z1 = math.random(100)
+    local z2 = math.random(100)
+    local vec1 = vector3.create_from_xyz(x1, y1, z1)
+    local vec2 = vector3.create_from_xyz(x2, y2, z2)
+
+    assert.are.same(vec1 - vec2, {
+      x = x1 - x2,
+      y = y1 - y2,
+      z = z1 - z2,
+    })
+  end)
+
+  it('__mul', function()
+    local x1 = math.random(100)
+    local x2 = math.random(100)
+    local y1 = math.random(100)
+    local y2 = math.random(100)
+    local z1 = math.random(100)
+    local z2 = math.random(100)
+    local vec1 = vector3.create_from_xyz(x1, y1, z1)
+    local vec2 = vector3.create_from_xyz(x2, y2, z2)
+
+    assert.are.same(vec1 * vec2, {
+      x = x1 * x2,
+      y = y1 * y2,
+      z = z1 * z2,
+    })
+  end)
+
+  it('__div', function()
+    local x1 = math.random(100)
+    local x2 = math.random(100)
+    local y1 = math.random(100)
+    local y2 = math.random(100)
+    local z1 = math.random(100)
+    local z2 = math.random(100)
+    local vec1 = vector3.create_from_xyz(x1, y1, z1)
+    local vec2 = vector3.create_from_xyz(x2, y2, z2)
+
+    assert.are.same(vec1 / vec2, {
+      x = x1 / x2,
+      y = y1 / y2,
+      z = z1 / z2,
+    })
+  end)
+
+  it('__eq', function()
+    local x = math.random(100)
+    local y = math.random(100)
+    local z = math.random(100)
+    local left = vector3.create_from_xyz(x, y, z)
+    local right = vector3.create_from_vector3(left)
+
+    assert.are.equals(left, right)
+  end)
+end)

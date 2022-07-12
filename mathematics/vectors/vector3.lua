@@ -18,6 +18,32 @@ local Vector3 = setmetatable({}, {
   },
 })
 
+local META = {}
+
+META.__tostring = function(object)
+  return string.format('(%s, %s, %s)', object.x, object.y, object.z)
+end
+
+META.__add = function(object, value)
+  return vector3.add(object, value)
+end
+
+META.__sub = function(object, value)
+  return vector3.subtract(object, value)
+end
+
+META.__mul = function(object, value)
+  return vector3.multiply(object, value)
+end
+
+META.__div = function(object, value)
+  return vector3.divide(object, value)
+end
+
+META.__eq = function(object, value)
+  return vector3.equals(object, value)
+end
+
 --[[
     VECTOR3 CONSTRUCTOR
 ]]
@@ -32,6 +58,12 @@ local Vector3 = setmetatable({}, {
 vector3.create_from_xyz = function(x, y, z)
   local object = setmetatable({}, {
     __index = Vector3,
+    __tostring = META.__tostring,
+    __add = META.__add,
+    __sub = META.__sub,
+    __mul = META.__mul,
+    __div = META.__div,
+    __eq = META.__eq,
   })
 
   object.x = x or 0.0
@@ -49,6 +81,12 @@ end
 vector3.create_from_value = function(value)
   local object = setmetatable({}, {
     __index = Vector3,
+    __tostring = META.__tostring,
+    __add = META.__add,
+    __sub = META.__sub,
+    __mul = META.__mul,
+    __div = META.__div,
+    __eq = META.__eq,
   })
 
   object.x = value or 0.0
@@ -66,6 +104,12 @@ end
 vector3.create_from_vector3 = function(vector)
   local object = setmetatable({}, {
     __index = Vector3,
+    __tostring = META.__tostring,
+    __add = META.__add,
+    __sub = META.__sub,
+    __mul = META.__mul,
+    __div = META.__div,
+    __eq = META.__eq,
   })
 
   if vector ~= nil then
@@ -104,7 +148,7 @@ vector3.add = function(left, right)
   return vector3.create_from_vector3({
     x = left.x + right.x,
     y = left.y + right.y,
-    z = left.z - right.z,
+    z = left.z + right.z,
   })
 end
 
@@ -148,6 +192,14 @@ vector3.divide = function(left, right)
     y = left.y / right.y,
     z = left.z / right.z,
   })
+end
+
+--- @param left lush.Descriptors.Vector3 Left operand.
+--- @param right lush.Descriptors.Vector3 Right operand.
+---
+--- @return boolean result Result of operation.
+vector3.equals = function(left, right)
+  return left.x == right.x and left.y == right.y and left.z == right.z
 end
 
 ---Returns a vector created from the smallest of the corresponding components of the given vectors.
